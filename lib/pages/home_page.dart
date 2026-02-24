@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nikyee/pages/cart_page.dart';
 import 'package:nikyee/pages/navbar.dart';
-
-
-
+import 'package:nikyee/pages/shop_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,15 +11,65 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // this control the nav bar buttons
+  int _selectedIndex = 0;
+  //this method will update the selected index
+  //when the user taps on the nav bar buttons
+  void navigateBottomBar(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  //pages to navigate
+  final List<Widget> _pages = [
+    //shop page
+    const ShopPage(),
+    //cart page
+    const CartPage(),
+  ];
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.grey[200],
       bottomNavigationBar: MyBottomNavBar(
         onTabChange: (index) => navigateBottomBar(index),
-      ));
+      ),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: Builder(
+          builder: (context) => IconButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            icon: Icon(Icons.menu, color: Colors.black),
+          ),
+        ),
+      ),
+      drawer: Drawer(
+        backgroundColor: Colors.grey[900],
+        child: Column(
+          children: [
+            //logo
+            DrawerHeader(
+              child: Image.asset('assets/images/logo.png', color: Colors.white),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: Divider(color: Colors.grey[800]),
+            ),
+
+            //other pages
+            Padding(
+              padding: const EdgeInsets.only(left: 25),
+              child: ListTile(leading: Icon(Icons.home), title: Text("Home")),
+            ),
+          ],
+        ),
+      ),
+      body: _pages[_selectedIndex],
+    );
   }
 }
-
-
