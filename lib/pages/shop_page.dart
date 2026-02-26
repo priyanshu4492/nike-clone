@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nikyee/models/shoe.dart';
 import 'package:nikyee/pages/shoe_tile.dart';
 
 class ShopPage extends StatefulWidget {
@@ -63,15 +64,26 @@ class _ShopPageState extends State<ShopPage> {
         ],
         
         ),
-      )
-      const SizedBox(height: 10),
+      ),
+       SizedBox(height: 10),
 
       Expanded(
-        child: ListView.builder(itemBuilder: (context,index){
-          return ShoeTile();
+        child: ListView.builder(
+          itemCount: 5,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context,index){
+            //create a shoe
+            Shoe shoe = Shoe(name: 'Air Jordan', price: '1200', description: 'Cool shoe ', imagePath: 'assets/images/2.jpg');
+          return ShoeTile(shoe:shoe );
         }),
-      )
+      ),
 
+        Padding(
+          padding: const EdgeInsets.only(top: 25.0,left: 25,right: 25),
+          child: Divider(
+            color: Colors.white,
+          ),
+        )
       ],
     );
   }

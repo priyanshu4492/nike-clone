@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nikyee/pages/first_page.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,9 +11,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ChangeNotifierProvider(create: (context)=>Cart(),
+    builder: (context, child) => const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:firstPage() ,
+      home: firstPage(),
+    ),
     );
   }
 }
